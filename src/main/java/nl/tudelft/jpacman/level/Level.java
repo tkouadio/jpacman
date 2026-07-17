@@ -272,12 +272,34 @@ public class Level {
      * Updates the observers about the state of this level.
      */
     private void updateObservers() {
+       respawnPlayersWithLivesRemaining();
         if (!isAnyPlayerAlive()) {
             notifyLevelLost();
         }
         if (remainingPellets() == 0) {
             notifyLevelWon();
         }
+    }
+
+    /**
+     * Respawns dead players that still have at least one life remaining.
+     */
+    private void respawnPlayersWithLivesRemaining() {
+        for (Player player : players) {
+            if (!player.isAlive() && player.hasLivesRemaining()) {
+                respawnPlayer(player);
+            }
+        }
+    }
+
+    /**
+     * Brings a player back to life and places them on a starting square.
+     *
+     * @param player The player to respawn.
+     */
+    private void respawnPlayer(Player player) {
+        player.setAlive(true);
+        placePlayerAtStart(player);
     }
 
     /**
