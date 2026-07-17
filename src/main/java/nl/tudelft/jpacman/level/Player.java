@@ -119,6 +119,16 @@ public class Player extends Unit {
     }
 
     /**
+     * Marks the player as dead and records the killer.
+     *
+     * @param killer The unit responsible for the death.
+     */
+    public void die(Unit killer) {
+        setKiller(killer);
+        setAlive(false);
+    }
+
+    /**
      * Adds points to the score of this player.
      *
      * @param points
