@@ -145,6 +145,15 @@ public class Level {
             return;
         }
         players.add(player);
+        placePlayerAtStart(player);
+    }
+
+    /**
+     * Places the player on a starting square.
+     *
+     * @param player The player to place.
+     */
+    private void placePlayerAtStart(Player player) {
         Square square = startSquares.get(startSquareIndex);
         player.occupy(square);
         startSquareIndex++;
