@@ -264,14 +264,28 @@ public class Level {
      */
     private void updateObservers() {
         if (!isAnyPlayerAlive()) {
-            for (LevelObserver observer : observers) {
-                observer.levelLost();
-            }
+            notifyLevelLost();
         }
         if (remainingPellets() == 0) {
-            for (LevelObserver observer : observers) {
-                observer.levelWon();
-            }
+            notifyLevelWon();
+        }
+    }
+
+    /**
+     * Notifies all observers that the level has been lost.
+     */
+    private void notifyLevelLost() {
+        for (LevelObserver observer : observers) {
+            observer.levelLost();
+        }
+    }
+
+    /**
+     * Notifies all observers that the level has been won.
+     */
+    private void notifyLevelWon() {
+        for (LevelObserver observer : observers) {
+            observer.levelWon();
         }
     }
 
