@@ -15,9 +15,19 @@ import nl.tudelft.jpacman.sprite.Sprite;
 public class Player extends Unit {
 
     /**
+     * Default number of lives.
+     */
+    private static final int DEFAULT_LIVES = 3;
+
+    /**
      * The amount of points accumulated by this player.
      */
     private int score;
+
+    /**
+     * Number of lives remaining.
+     */
+    private int lives;
 
     /**
      * The animations for every direction.
@@ -49,6 +59,7 @@ public class Player extends Unit {
      */
     protected Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         this.score = 0;
+        this.lives = DEFAULT_LIVES;
         this.alive = true;
         this.sprites = spriteMap;
         this.deathSprite = deathAnimation;
@@ -110,6 +121,33 @@ public class Player extends Unit {
         return score;
     }
 
+    /**
+     * Returns the number of lives remaining.
+     *
+     * @return The number of lives remaining.
+     */
+    public int getLives() {
+        return lives;
+    }
+
+    /**
+     * Returns whether the player still has lives remaining.
+     *
+     * @return true if at least one life remains.
+     */
+    public boolean hasLivesRemaining() {
+        return lives > 0;
+    }
+
+    /**
+     * Removes one life from the player.
+     */
+    public void loseLife() {
+        if (lives > 0) {
+            lives--;
+        }
+    }
+
     @Override
     public Sprite getSprite() {
         if (isAlive()) {
@@ -125,6 +163,7 @@ public class Player extends Unit {
      */
     public void die(Unit killer) {
         setKiller(killer);
+        loseLife();
         setAlive(false);
     }
 
